@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In - SK Phonix Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <style>
+        /* --- Brand Identity System ---
+           Sage Green Accent: #D1E2D3 (Light), #A3C1AD (Muted)
+           Pine Green Accent: #01796F (Primary Brand), #004D40 (Deep Velvet)
+        ---------------------------------- */
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #F4F7F5 0%, #E2ECE4 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            color: #2D3732;
+            overflow-x: hidden;
+        }
+
+        /* --- Split Layout Platform Card --- */
+        .auth-container {
+            background-color: white;
+            width: 100%;
+            max-width: 960px;
+            min-height: 580px;
+            border-radius: 24px;
+            box-shadow: 0 15px 35px rgba(0, 48, 43, 0.08);
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* Left Split: Brand Showcase Side */
+        .auth-showcase-panel {
+            flex: 1;
+            background: linear-gradient(145deg, #01796F, #004D40);
+            color: white;
+            padding: 45px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .brand-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .brand-header .material-icons {
+            color: #D1E2D3;
+            font-size: 30px;
+        }
+
+        .showcase-content {
+            margin: auto 0;
+        }
+
+        .showcase-content h1 {
+            font-size: 38px;
+            font-weight: 700;
+            line-height: 1.25;
+            margin-bottom: 18px;
+            color: white;
+        }
+
+        .showcase-content p {
+            color: #D1E2D3;
+            font-size: 16px;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        .showcase-footer {
+            font-size: 13px;
+            color: #A3C1AD;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Right Split: Interaction Form Face */
+        .auth-form-panel {
+            flex: 1.1;
+            padding: 55px 65px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+        }
+
+        .form-title-area {
+            margin-bottom: 32px;
+        }
+
+        .form-title-area h2 {
+            font-size: 30px;
+            color: #004D40;
+            margin-bottom: 8px;
+        }
+
+        .form-title-area p {
+            font-size: 14px;
+            color: #556B5F;
+        }
+
+        .form-title-area a {
+            color: #01796F;
+            text-decoration: none;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .form-title-area a:hover {
+            text-decoration: underline;
+        }
+
+        /* Core Input Elements Styling */
+        .input-group {
+            position: relative;
+            margin-bottom: 22px;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            color: #004D40;
+            margin-bottom: 8px;
+        }
+
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-wrapper .material-icons {
+            position: absolute;
+            left: 16px;
+            color: #A3C1AD;
+            font-size: 20px;
+            pointer-events: none;
+            transition: color 0.3s;
+        }
+
+        .input-wrapper input {
+            width: 100%;
+            padding: 14px 16px 14px 48px;
+            border: 1px solid rgba(1, 121, 111, 0.2);
+            border-radius: 10px;
+            font-size: 15px;
+            background-color: #F8FAF8;
+            color: #2D3732;
+            transition: all 0.3s ease;
+        }
+
+        .input-wrapper input:focus {
+            outline: none;
+            border-color: #01796F;
+            background-color: white;
+            box-shadow: 0 0 0 4px rgba(1, 121, 111, 0.08);
+        }
+
+        .input-wrapper input:focus ~ .material-icons {
+            color: #01796F;
+        }
+
+        /* Checkbox & Options Utilities Row */
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            margin-bottom: 28px;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            color: #556B5F;
+        }
+
+        .remember-me input {
+            accent-color: #01796F;
+            width: 16px;
+            height: 16px;
+        }
+
+        .forgot-pass {
+            color: #01796F;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .forgot-pass:hover {
+            text-decoration: underline;
+        }
+
+        /* Primary Action Buttons */
+        .submit-auth-btn {
+            width: 100%;
+            background-color: #01796F;
+            color: white;
+            border: none;
+            padding: 15px;
+            font-size: 16px;
+            font-weight: 500;
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(1, 121, 111, 0.15);
+            transition: background 0.2s, transform 0.1s;
+        }
+
+        .submit-auth-btn:hover {
+            background-color: #004D40;
+        }
+
+        .submit-auth-btn:active {
+            transform: scale(0.99);
+        }
+
+        /* Third-Party Login Component Structures */
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: #A3C1AD;
+            font-size: 12px;
+            margin: 28px 0;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+
+        .divider::before, .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid rgba(163, 193, 173, 0.35);
+        }
+
+        .divider:not(:empty)::before { margin-right: 1em; }
+        .divider:not(:empty)::after { margin-left: 1em; }
+
+        .alt-sign-in-methods {
+            display: flex;
+            gap: 16px;
+        }
+
+        .alt-btn {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid rgba(163, 193, 173, 0.45);
+            border-radius: 10px;
+            background-color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 14px;
+            color: #4A5D53;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+
+        .alt-btn:hover {
+            background-color: #F4F7F5;
+            border-color: #A3C1AD;
+        }
+
+        .alt-btn img {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* --- Media Breakpoint Overrides --- */
+        @media (max-width: 768px) {
+            .auth-container {
+                flex-direction: column;
+                max-width: 460px;
+            }
+
+            .auth-showcase-panel {
+                padding: 35px;
+                min-height: 200px;
+                flex: none;
+            }
+
+            .showcase-content h1 { font-size: 28px; margin-bottom: 6px; }
+            .showcase-content p, .showcase-footer { display: none; }
+
+            .auth-form-panel {
+                padding: 35px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="auth-container">
+        
+        <div class="auth-showcase-panel">
+            <div class="brand-header">
+                <span class="material-icons">phonelink_setup</span>
+                <span>SK PHONIX HUB</span>
+            </div>
+            
+            <div class="showcase-content">
+                <h1 id="showcase-title">Step Into Next-Gen Mobility</h1>
+                <p id="showcase-text">Access your personalized dashboard, track reserved mobile stock items instantly, and manage membership details with simplicity.</p>
+            </div>
+            
+            <div class="showcase-footer">
+                <span class="material-icons" style="font-size: 15px;">lock</span>
+                <span>End-to-End Secure Platform Environment</span>
+            </div>
+        </div>
+
+        <div class="auth-form-panel">
+            <div class="form-title-area">
+                <h2 id="form-main-heading">Sign In</h2>
+                <p id="form-toggle-subtext">New to the Hub? <a id="switch-signup">Create an account</a></p>
+            </div>
+
+            <form id="signin-form">
+                <div id="dynamic-name-container"></div>
+                
+                <div class="input-group">
+                    <label for="user-email">Account Email</label>
+                    <div class="input-wrapper">
+                        <input type="email" id="user-email" placeholder="name@domain.com" required>
+                        <span class="material-icons">mail_outline</span>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="user-pass">Secure Password</label>
+                    <div class="input-wrapper">
+                        <input type="password" id="user-pass" placeholder="••••••••" required>
+                        <span class="material-icons" id="password-toggle-visibility" style="left: auto; right: 16px; pointer-events: auto; cursor: pointer;">visibility_off</span>
+                    </div>
+                </div>
+
+                <div class="form-options">
+                    <label class="remember-me">
+                        <input type="checkbox" id="remember-flag">
+                        <span>Keep me signed in</span>
+                    </label>
+                    <a class="forgot-pass" id="forgot-password-link">Forgot Password?</a>
+                </div>
+
+                <button type="submit" class="submit-auth-btn">
+                    <span id="submit-btn-text">Access Account</span>
+                    <span class="material-icons">arrow_forward</span>
+                </button>
+
+                <div class="divider">or continue with</div>
+
+                <div class="alt-sign-in-methods">
+                    <button type="button" class="alt-btn" onclick="alert('Google Authentication Portal Triggered')">
+                        <img src="https://cdns.iconmonstr.com/wp-content/releases/preview/2012/20/iconmonstr-google-plus-1.png" alt="Google Access Provider Icon" style="filter: grayscale(1) contrast(2);">
+                        <span>Google</span>
+                    </button>
+                    <button type="button" class="alt-btn" onclick="alert('Apple ID Authentication Portal Triggered')">
+                        <span class="material-icons" style="font-size: 18px; color: #000;">apple</span>
+                        <span>Apple ID</span>
+                    </button>
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const authForm = document.getElementById('signin-form');
+            const switchModeLink = document.getElementById('switch-signup');
+            const passwordInput = document.getElementById('user-pass');
+            const passwordToggleIcon = document.getElementById('password-toggle-visibility');
+            
+            // Layout Components Elements Access Hooks
+            const formPanel = document.querySelector('.auth-form-panel');
+            const formMainHeading = document.getElementById('form-main-heading');
+            const formToggleSubtext = document.getElementById('form-toggle-subtext');
+            const dynamicNameContainer = document.getElementById('dynamic-name-container');
+            const submitBtnText = document.getElementById('submit-btn-text');
+            const showcaseTitle = document.getElementById('showcase-title');
+            const showcaseText = document.getElementById('showcase-text');
+            const forgotPasswordLink = document.getElementById('forgot-password-link');
+
+            // Internal Core Authentication State Matrix
+            let currentAuthMode = 'signin'; // Mode options: 'signin' | 'signup'
+
+            // Shared Spring Transition Animation Configuration Array
+            const animationTiming = {
+                duration: 350,
+                easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
+                fill: 'forwards'
+            };
+
+            // 1. Password Visibility Reveal System
+            passwordToggleIcon.addEventListener('click', () => {
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';
+                    passwordToggleIcon.textContent = 'visibility';
+                    passwordToggleIcon.style.color = '#01796F'; 
+                } else {
+                    passwordInput.type = 'password';
+                    passwordToggleIcon.textContent = 'visibility_off';
+                    passwordToggleIcon.style.color = '#A3C1AD'; 
+                }
+            });
+
+            // 2. State Switcher Layout Transformer Loop with Web Animations API
+            function transformAuthLayout() {
+                // Collect elements to crossfade softly in step one
+                const runningTextElements = [formMainHeading, formToggleSubtext, submitBtnText, showcaseTitle, showcaseText];
+                
+                runningTextElements.forEach(el => {
+                    el.animate([
+                        { opacity: 1, transform: 'scale(1)' },
+                        { opacity: 0, transform: 'scale(0.97)' }
+                    ], { duration: 150, easing: 'ease-out', fill: 'forwards' });
+                });
+
+                // Wait briefly for text strings fade-out frame completion
+                setTimeout(() => {
+                    if (currentAuthMode === 'signup') {
+                        formMainHeading.textContent = 'Create Account';
+                        formToggleSubtext.innerHTML = 'Already have an account? <a id="goto-signin">Sign In here</a>';
+                        submitBtnText.textContent = 'Register & Access';
+                        showcaseTitle.textContent = 'Join the Hub Community';
+                        showcaseText.textContent = 'Create an account to track device pre-orders, configure custom specifications, and receive premium hardware notifications.';
+                        forgotPasswordLink.style.visibility = 'hidden';
+
+                        // Inject Name Group structure into placeholder frame context
+                        dynamicNameContainer.innerHTML = `
+                            <div class="input-group" id="fullname-slide-wrapper" style="opacity: 0; transform: translateY(-15px); max-height: 0; margin-bottom: 0; overflow: hidden;">
+                                <label for="user-fullname">Full Name</label>
+                                <div class="input-wrapper">
+                                    <input type="text" id="user-fullname" placeholder="John Doe" required>
+                                    <span class="material-icons">person_outline</span>
+                                </div>
+                            </div>
+                        `;
+
+                        // Execute sliding reveal parameters for newly appended input row node
+                        document.getElementById('fullname-slide-wrapper').animate([
+                            { opacity: 0, transform: 'translateY(-15px)', maxHeight: '0px', marginBottom: '0px' },
+                            { opacity: 1, transform: 'translateY(0)', maxHeight: '100px', marginBottom: '22px' }
+                        ], animationTiming);
+
+                        // Attach Event Handlers natively to dynamically rendered string reference
+                        document.getElementById('goto-signin').addEventListener('click', (e) => {
+                            e.preventDefault();
+                            currentAuthMode = 'signin';
+                            transformAuthLayout();
+                        });
+
+                    } else {
+                        formMainHeading.textContent = 'Sign In';
+                        formToggleSubtext.innerHTML = 'New to the Hub? <a id="goto-signup">Create an account</a>';
+                        submitBtnText.textContent = 'Access Account';
+                        showcaseTitle.textContent = 'Step Into Next-Gen Mobility';
+                        showcaseText.textContent = 'Access your personalized dashboard, track reserved mobile stock items instantly, and manage membership details with simplicity.';
+                        forgotPasswordLink.style.visibility = 'visible';
+
+                        // Perform a clean reduction slide out of Name Field before deletion execution rules
+                        const existingNameWrapper = document.getElementById('fullname-slide-wrapper');
+                        if (existingNameWrapper) {
+                            const collapseTween = existingNameWrapper.animate([
+                                { opacity: 1, transform: 'translateY(0)', maxHeight: '100px', marginBottom: '22px' },
+                                { opacity: 0, transform: 'translateY(-15px)', maxHeight: '0px', marginBottom: '0px' }
+                            ], animationTiming);
+                            
+                            collapseTween.onfinish = () => { dynamicNameContainer.innerHTML = ''; };
+                        }
+
+                        document.getElementById('goto-signup').addEventListener('click', (e) => {
+                            e.preventDefault();
+                            currentAuthMode = 'signup';
+                            transformAuthLayout();
+                        });
+                    }
+
+                    // Reveal altered layout text sets back safely with an upward glide offset 
+                    runningTextElements.forEach(el => {
+                        el.animate([
+                            { opacity: 0, transform: 'translateY(10px)' },
+                            { opacity: 1, transform: 'translateY(0)' }
+                        ], { duration: 250, easing: 'ease-out', fill: 'forwards' });
+                    });
+
+                }, 150);
+            }
+
+            // Bind the initial trigger configuration setup handler
+            switchModeLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                currentAuthMode = (currentAuthMode === 'signin') ? 'signup' : 'signin';
+                transformAuthLayout();
+            });
+
+            // Initialize correct structural target points upon launching system windows
+            transformAuthLayout();
+
+            // 3. Client Validation Input Error Handling & Dashboard Submission Stream
+            authForm.addEventListener('submit', (event) => {
+                event.preventDefault(); 
+
+                const emailValue = document.getElementById('user-email').value.trim();
+                const passwordValue = passwordInput.value;
+
+                // Security parameter length validation rules constraint block
+                if (passwordValue.length < 6) {
+                    // Initialize a layout shake event sequence indicating form execution blocks
+                    formPanel.animate([
+                        { transform: 'translateX(0)' },
+                        { transform: 'translateX(-8px)' },
+                        { transform: 'translateX(8px)' },
+                        { transform: 'translateX(-5px)' },
+                        { transform: 'translateX(5px)' },
+                        { transform: 'translateX(0)' }
+                    ], { duration: 380, easing: 'ease-in-out' });
+                    
+                    alert('Configuration Alert:\nYour password profile selection code must contain at least 6 characters.');
+                    return;
+                }
+
+                // Smooth out fading sequence right before pushing destination route changes
+                const transitionCanvasFade = document.body.animate([
+                    { opacity: 1, filter: 'blur(0px)' },
+                    { opacity: 0, filter: 'blur(4px)' }
+                ], { duration: 300, fill: 'forwards' });
+
+                transitionCanvasFade.onfinish = () => {
+                    if (currentAuthMode === 'signin') {
+                        alert(`Authorization Complete!\nWelcome back user: ${emailValue}`);
+                        localStorage.setItem('hubUserEmail', emailValue);
+                        localStorage.setItem('hubSessionActive', 'true');
+                        window.location.href = 'index.html'; // Pushes users back to main store file node map
+                    } else {
+                        const nameValue = document.getElementById('user-fullname').value.trim();
+                        alert(`Registration Process Initiated!\nWelcome to the hub, ${nameValue}.\nAn activation code payload was dispatched to your mail box.`);
+                        localStorage.setItem('hubUserEmail', emailValue);
+                        localStorage.setItem('hubSessionActive', 'true');
+                        window.location.href = 'index.html';
+                    }
+                };
+            });
+
+            // Mock Recover Link Handler Rule Setup
+            forgotPasswordLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetEmailInput = document.getElementById('user-email').value.trim();
+                if(!targetEmailInput) {
+                    alert('Please enter your Account Email address into the provided form zone block grid coordinate first.');
+                } else {
+                    alert(`Verification Forward Complete:\nA configuration verification string was compiled and routed to your email: ${targetEmailInput}.`);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

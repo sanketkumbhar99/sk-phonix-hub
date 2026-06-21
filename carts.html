@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SK Phonix Hub - Next-Gen Showcase</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            background-color: #F4F7F5;
+            color: #2D3732;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- 1. Top Navigation Bar --- */
+        .top-nav {
+            background-color: #004D40;
+            color: white;
+            padding: 12px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 20px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .nav-logo .material-icons {
+            color: #D1E2D3;
+            font-size: 28px;
+        }
+
+        .nav-search-bar {
+            flex: 0 1 500px;
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-search-bar input {
+            width: 100%;
+            padding: 10px 16px 10px 45px;
+            border: 1px solid rgba(209, 226, 211, 0.3);
+            border-radius: 20px;
+            background-color: rgba(255, 255, 255, 0.15);
+            color: white;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .nav-search-bar input::placeholder {
+            color: #A3C1AD;
+        }
+
+        .nav-search-bar input:focus {
+            outline: none;
+            background-color: white;
+            color: #2D3732;
+            border-color: #01796F;
+            box-shadow: 0 0 0 4px rgba(1, 121, 111, 0.2);
+        }
+
+        .nav-search-bar .material-icons {
+            position: absolute;
+            left: 15px;
+            color: #A3C1AD;
+        }
+
+        .nav-search-bar input:focus ~ .material-icons {
+            color: #01796F;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .cart-btn-wrapper {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -6px;
+            right: -8px;
+            background-color: #01796F;
+            color: white;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 10px;
+            border: 2px solid #004D40;
+        }
+
+        .auth-redirect-btn {
+            background-color: #D1E2D3;
+            color: #004D40;
+            border: none;
+            padding: 8px 20px;
+            font-size: 14px;
+            font-weight: 500;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.2s, transform 0.1s;
+        }
+
+        .auth-redirect-btn:hover {
+            background-color: white;
+        }
+
+        .avatar-slot {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: #01796F;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            cursor: pointer;
+            border: 2px solid #D1E2D3;
+        }
+
+        /* --- 2. Company Showcase Header Area --- */
+        .showcase-header-panel {
+            background-color: white;
+            padding: 40px;
+            margin: 30px auto;
+            width: 90%;
+            max-width: 1200px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 48, 43, 0.04);
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .brand-logo-grid {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            max-width: 320px;
+        }
+
+        .brand-img-card {
+            background-color: #F4F7F5;
+            border: 1px solid rgba(163, 193, 173, 0.3);
+            border-radius: 12px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #01796F;
+            font-size: 14px;
+        }
+
+        .brand-meta-details {
+            flex: 2;
+        }
+
+        .brand-meta-details h1 {
+            font-size: 42px;
+            color: #004D40;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .brand-meta-details p {
+            font-size: 18px;
+            color: #556B5F;
+            font-weight: 300;
+            border-left: 4px solid #01796F;
+            padding-left: 15px;
+        }
+
+        /* --- 3. Dynamic Variation Container Section --- */
+        .variant-display-section {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto 50px auto;
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 40px;
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 48, 43, 0.04);
+        }
+
+        .display-container-box {
+            background-color: #F8FAF8;
+            border: 1px solid rgba(1, 121, 111, 0.1);
+            border-radius: 16px;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .display-container-box .material-icons {
+            font-size: 220px;
+            color: #01796F;
+            transition: all 0.3s ease;
+        }
+
+        .variant-configuration-details {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .variant-configuration-details h2 {
+            font-size: 28px;
+            color: #004D40;
+            margin-bottom: 12px;
+        }
+
+        .item-price-tag {
+            font-size: 24px;
+            color: #01796F;
+            font-weight: 700;
+            margin-bottom: 25px;
+        }
+
+        .selection-title {
+            font-size: 13px;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #A3C1AD;
+            margin-bottom: 12px;
+        }
+
+        .interactive-variant-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 35px;
+        }
+
+        .variant-pill {
+            padding: 12px 24px;
+            border: 2px solid rgba(163, 193, 173, 0.4);
+            border-radius: 10px;
+            background: white;
+            cursor: pointer;
+            font-weight: 500;
+            color: #4A5D53;
+            transition: all 0.2s;
+        }
+
+        .variant-pill:hover {
+            border-color: #01796F;
+            background-color: #F4F7F5;
+        }
+
+        .variant-pill.active {
+            border-color: #01796F;
+            background-color: #01796F;
+            color: white;
+            box-shadow: 0 4px 10px rgba(1, 121, 111, 0.2);
+        }
+
+        .action-add-btn {
+            background-color: #004D40;
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            font-size: 16px;
+            font-weight: 500;
+            border-radius: 10px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 4px 12px rgba(0, 77, 64, 0.15);
+            transition: all 0.2s;
+        }
+
+        .action-add-btn:hover {
+            background-color: #01796F;
+            transform: translateY(-2px);
+        }
+
+        /* --- 4. User Information Flyout Details Drawer --- */
+        .info-drawer-overlay {
+            position: fixed;
+            top: 0;
+            right: -350px;
+            width: 350px;
+            height: 100%;
+            background-color: white;
+            box-shadow: -5px 0 25px rgba(0,0,0,0.08);
+            z-index: 2000;
+            transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 40px 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .info-drawer-overlay.open {
+            right: 0;
+        }
+
+        .close-drawer-icon {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            cursor: pointer;
+            color: #A3C1AD;
+        }
+
+        .close-drawer-icon:hover { color: #004D40; }
+
+        .drawer-avatar-giant {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background-color: #01796F;
+            color: white;
+            font-size: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-bottom: 20px;
+            border: 4px solid #D1E2D3;
+        }
+
+        .drawer-user-name {
+            font-size: 22px;
+            font-weight: 700;
+            color: #004D40;
+            margin-bottom: 5px;
+        }
+
+        .drawer-user-role {
+            font-size: 13px;
+            color: #01796F;
+            text-transform: uppercase;
+            font-weight: 500;
+            letter-spacing: 1px;
+            margin-bottom: 30px;
+        }
+
+        .drawer-info-card {
+            width: 100%;
+            background-color: #F4F7F5;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border: 1px solid rgba(163, 193, 173, 0.2);
+        }
+
+        .drawer-info-card .material-icons {
+            color: #01796F;
+        }
+
+        .drawer-info-text h4 {
+            font-size: 11px;
+            color: #A3C1AD;
+            text-transform: uppercase;
+        }
+
+        .drawer-info-text p {
+            font-size: 14px;
+            color: #2D3732;
+            font-weight: 500;
+        }
+
+        /* --- 5. Global Footer Component --- */
+        footer {
+            background-color: #2D3732;
+            color: #A3C1AD;
+            text-align: center;
+            padding: 20px;
+            font-size: 13px;
+            margin-top: auto;
+            border-top: 3px solid #01796F;
+        }
+
+        @media (max-width: 900px) {
+            .showcase-header-panel, .variant-display-section {
+                flex-direction: column;
+                grid-template-columns: 1fr;
+                padding: 25px;
+            }
+            .top-nav { padding: 12px 20px; }
+            .brand-logo-grid { max-width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="top-nav">
+        <div class="nav-logo" onclick="location.reload()">
+            <span class="material-icons">phonelink_setup</span>
+            <span>SK PHONIX HUB</span>
+        </div>
+
+        <div class="nav-search-bar">
+            <input type="text" placeholder="Search devices, orders, specifications...">
+            <span class="material-icons">search</span>
+        </div>
+
+        <div class="nav-actions">
+            <div class="cart-btn-wrapper" onclick="alert('Viewing cart dashboard')">
+                <span class="material-icons">shopping_bag</span>
+                <span class="cart-count" id="cart-counter-node">0</span>
+            </div>
+            <a href="signin.html" class="auth-redirect-btn" id="nav-login-btn">Sign In</a>
+            <div class="avatar-slot" id="user-avatar-trigger" style="display: none;">JD</div>
+        </div>
+    </nav>
+
+    <header class="showcase-header-panel">
+        <div class="brand-logo-grid">
+            <div class="brand-img-card">PHONIX PRO</div>
+            <div class="brand-img-card" style="opacity: 0.7;">NEXUS PRIME</div>
+            <div class="brand-img-card" style="opacity: 0.5;">MATRIX TAB</div>
+            <div class="brand-img-card" style="opacity: 0.3;">ECO WEAR</div>
+        </div>
+        <div class="brand-meta-details">
+            <h1>SK Phonix Hub</h1>
+            <p>Architecting the Next Era of Connected Intelligence. Seamlessly unified ecosystem components tailored to the speed of modern life.</p>
+        </div>
+    </header>
+
+    <main class="variant-display-section">
+        <div class="display-container-box">
+            <img src="img/mo3.jpg" alt="" class="s">
+        </div>
+
+        <div class="variant-configuration-details">
+            <h2 id="variant-title-node">Phonix Flagship Pro</h2>
+            <div class="item-price-tag" id="variant-price-node">$999.00</div>
+            
+            <div class="selection-title">Select Variation Model</div>
+            <div class="interactive-variant-row">
+                <button class="variant-pill active" onclick="updateDeviceVariant('phone_android', 'Phonix Flagship Pro', '$999.00', this)">Smart Phone</button>
+                <button class="variant-pill" onclick="updateDeviceVariant('tablet_android', 'Phonix UltraPad Matrix', '$749.00', this)">Pro Tablet</button>
+                <button class="variant-pill" onclick="updateDeviceVariant('watch', 'Phonix Horizon Chrono', '$299.00', this)">Smart Watch</button>
+            </div>
+
+            <div>
+                <button class="action-add-btn" onclick="incrementCartCounter()">
+                    <span class="material-icons">add_shopping_cart</span>
+                    <span>Add to Cart System</span>
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <aside class="info-drawer-overlay" id="profile-drawer-container">
+        <span class="material-icons close-drawer-icon" id="profile-drawer-close">close</span>
+        <div class="drawer-avatar-giant">JD</div>
+        <h3 class="drawer-user-name">John Doe</h3>
+        <span class="drawer-user-role">Premium Member</span>
+
+        <div class="drawer-info-card">
+            <span class="material-icons">email</span>
+            <div class="drawer-info-text">
+                <h4>Account Email</h4>
+                <p id="drawer-email-field">john.doe@domain.com</p>
+            </div>
+        </div>
+
+        <div class="drawer-info-card">
+            <span class="material-icons">verified_user</span>
+            <div class="drawer-info-text">
+                <h4>Security Clearance</h4>
+                <p>Level 2 Verified</p>
+            </div>
+        </div>
+    </aside>
+
+    <footer>
+        &copy; 2026 SK Phonix Hub Architecture Inc. All Rights Reserved.
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const avatarTrigger = document.getElementById('user-avatar-trigger');
+            const loginBtn = document.getElementById('nav-login-btn');
+            const drawer = document.getElementById('profile-drawer-container');
+            const closeDrawerBtn = document.getElementById('profile-drawer-close');
+            const cartCounter = document.getElementById('cart-counter-node');
+            const drawerEmailField = document.getElementById('drawer-email-field');
+            
+            let globalCartQuantity = 0;
+
+            // 1. Check Session & Handle Login States
+            const savedEmail = localStorage.getItem('hubUserEmail');
+            const isSessionActive = localStorage.getItem('hubSessionActive');
+
+            if (isSessionActive === 'true' && savedEmail) {
+                loginBtn.style.display = 'none';
+                avatarTrigger.style.display = 'flex';
+                drawerEmailField.textContent = savedEmail;
+                
+                const initials = savedEmail.substring(0, 2).toUpperCase();
+                avatarTrigger.textContent = initials;
+                document.querySelector('.drawer-avatar-giant').textContent = initials;
+                document.querySelector('.drawer-user-name').textContent = savedEmail.split('@')[0];
+            }
+
+            // 2. Flyout Sidebar Open/Close Drivers
+            avatarTrigger.addEventListener('click', () => drawer.classList.add('open'));
+            closeDrawerBtn.addEventListener('click', () => drawer.classList.remove('open'));
+
+            document.addEventListener('click', (e) => {
+                if (!drawer.contains(e.target) && !avatarTrigger.contains(e.target) && drawer.classList.contains('open')) {
+                    drawer.classList.remove('open');
+                }
+            });
+
+            // 3. Cart Counter System
+            window.incrementCartCounter = function() {
+                globalCartQuantity++;
+                cartCounter.textContent = globalCartQuantity;
+                
+                cartCounter.animate([
+                    { transform: 'scale(1)' },
+                    { transform: 'scale(1.4)' },
+                    { transform: 'scale(1)' }
+                ], { duration: 200 });
+            };
+
+            // 4. Product Variant Switcher Engine
+            window.updateDeviceVariant = function(icon, name, price, button) {
+                const canvasIcon = document.getElementById('variant-hero-canvas');
+                
+                document.querySelectorAll('.variant-pill').forEach(pill => pill.classList.remove('active'));
+                button.classList.add('active');
+
+                canvasIcon.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 100 }).onfinish = () => {
+                    canvasIcon.textContent = icon;
+                    document.getElementById('variant-title-node').textContent = name;
+                    document.getElementById('variant-price-node').textContent = price;
+
+                    canvasIcon.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 150 });
+                };
+            };
+        });
+    </script>
+</body>
+</html>

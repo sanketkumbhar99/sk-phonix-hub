@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phonix - Mobile Shop</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <style>
+        /* --- Material Color Palette ---
+           Sage Green: #D1E2D3 (Light), #A3C1AD (Base)
+           Pine Green: #01796F (Main), #004D40 (Dark)
+        ---------------------------------- */
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-style: border-box;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            background-color: #F4F7F5; /* Ultra light Sage tint */
+            color: #2D3732;
+        }
+
+        /* --- Navigation Bar --- */
+        .navbar {
+            background-color: #01796F; /* Pine Green */
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 40px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .logo .material-icons {
+            margin-right: 8px;
+            font-size: 28px;
+        }
+
+        .search-container {
+            flex: 0 1 500px;
+            position: relative;
+            margin: 0 20px;
+        }
+
+        .search-container input {
+            width: 100%;
+            padding: 10px 15px 10px 45px;
+            border: none;
+            border-radius: 25px;
+            background-color: rgba(255, 255, 255, 0.15);
+            color: white;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .search-container input::placeholder {
+            color: #D1E2D3;
+        }
+
+        .search-container input:focus {
+            background-color: white;
+            color: #004D40;
+            outline: none;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        }
+
+        .search-container input:focus::placeholder {
+            color: #888;
+        }
+
+        .search-container .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #D1E2D3;
+            pointer-events: none;
+        }
+
+        .search-container input:focus ~ .search-icon {
+            color: #01796F;
+        }
+
+        .nav-btn {
+            background-color: #D1E2D3; /* Sage Green */
+            color: #004D40; /* Dark Pine */
+            border: none;
+            padding: 10px 24px;
+            font-size: 15px;
+            font-weight: 500;
+            border-radius: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.3s;
+        }
+
+        .nav-btn:hover {
+            background-color: #A3C1AD;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 40px;
+            background: linear-gradient(145deg, #E2ECE4, #D1E2D3);
+            margin: 20px auto;
+            max-width: 1200px;
+            border-radius: 16px;
+            gap: 40px;
+        }
+
+        .hero-image-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .hero-image-container img {
+            max-width: 100%;
+            height: 320px;
+            object-fit: contain;
+            filter: drop-shadow(0px 10px 15px rgba(0,0,0,0.15));
+        }
+
+        .hero-text {
+            flex: 1;
+        }
+
+        .hero-text h1 {
+            font-size: 48px;
+            color: #004D40;
+            margin-bottom: 10px;
+        }
+
+        .hero-text p {
+            font-size: 18px;
+            color: #4A5D53;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+
+        /* --- Product Variations Section --- */
+        .variations-section {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        .section-title {
+            color: #01796F;
+            margin-bottom: 30px;
+            font-size: 28px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 3px;
+            background-color: #A3C1AD;
+            bottom: -8px;
+            left: 25%;
+            border-radius: 2px;
+        }
+
+        /* Interactive Showcase Container */
+        .showcase-container {
+            display: flex;
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+            overflow: hidden;
+            margin-bottom: 30px;
+            min-height: 400px;
+        }
+
+        .showcase-display {
+            flex: 1;
+            background-color: #F8FAF8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            border-right: 1px solid #E2ECE4;
+        }
+
+        .showcase-display img {
+            max-height: 350px;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+
+        .showcase-display img:hover {
+            transform: scale(1.03);
+        }
+
+        .showcase-details {
+            flex: 1;
+            padding: 40px;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .showcase-details h2 {
+            font-size: 32px;
+            color: #004D40;
+            margin-bottom: 15px;
+        }
+
+        .showcase-details .price {
+            font-size: 24px;
+            color: #01796F;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .showcase-details .specs {
+            margin-bottom: 30px;
+            list-style: none;
+        }
+
+        .showcase-details .specs li {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            color: #556B5F;
+        }
+
+        .showcase-details .specs li .material-icons {
+            margin-right: 10px;
+            color: #01796F;
+            font-size: 20px;
+        }
+
+        /* Thumbnails Grid Grid */
+        .thumbnails-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+        }
+
+        .thumb-card {
+            background-color: white;
+            border: 2px solid transparent;
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+        }
+
+        .thumb-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+        }
+
+        .thumb-card.active {
+            border-color: #01796F;
+            background-color: #F0F5F2;
+        }
+
+        .thumb-card img {
+            width: 100%;
+            height: 120px;
+            object-fit: contain;
+            margin-bottom: 12px;
+        }
+
+        .thumb-card p {
+            font-weight: 500;
+            color: #2D3732;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 15px;
+                padding: 15px;
+            }
+            .search-container {
+                width: 100%;
+                flex: none;
+                margin: 0;
+            }
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding: 30px 20px;
+            }
+            .hero-text h1 {
+                font-size: 32px;
+            }
+            .showcase-container {
+                flex-direction: column;
+            }
+            .showcase-display {
+                border-right: none;
+                border-bottom: 1px solid #E2ECE4;
+            }
+        }
+        /* --- Footer Styles --- */
+        .site-footer {
+            background-color: #004D40; /* Dark Pine Green */
+            color: #E2ECE4; /* Light Sage Tint */
+            padding: 60px 0 0 0;
+            margin-top: 60px;
+            font-size: 14px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 2fr;
+            gap: 40px;
+            padding-bottom: 40px;
+        }
+
+        .footer-col h3 {
+            color: #D1E2D3; /* Sage Green */
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-col ul li a {
+            color: #A3C1AD;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .footer-col ul li a:hover {
+            color: white;
+        }
+
+        /* Brand Column Styling */
+        .brand-col .footer-logo {
+            display: flex;
+            align-items: center;
+            font-size: 22px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        .brand-col .footer-logo .material-icons {
+            margin-right: 8px;
+            color: #D1E2D3;
+        }
+
+        .footer-text {
+            line-height: 1.6;
+            color: #A3C1AD;
+            margin-bottom: 20px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            color: #004D40;
+            background-color: #D1E2D3;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background-color: white;
+            transform: translateY(-3px);
+        }
+
+        /* Newsletter Input Styling */
+        .newsletter-col p {
+            line-height: 1.6;
+            color: #A3C1AD;
+            margin-bottom: 15px;
+        }
+
+        .newsletter-form {
+            display: flex;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(209, 226, 211, 0.2);
+            border-radius: 8px;
+            padding: 4px;
+        }
+
+        .newsletter-form input {
+            background: transparent;
+            border: none;
+            padding: 10px 15px;
+            color: white;
+            flex: 1;
+            font-size: 14px;
+        }
+
+        .newsletter-form input::placeholder {
+            color: #88A493;
+        }
+
+        .newsletter-form input:focus {
+            outline: none;
+        }
+
+        .newsletter-form button {
+            background-color: #01796F; /* Pine Green */
+            color: white;
+            border: none;
+            padding: 0 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+
+        .newsletter-form button:hover {
+            background-color: #A3C1AD;
+            color: #004D40;
+        }
+
+        /* Footer Bottom Bar */
+        .footer-bottom {
+            background-color: #00332B; /* Darker tone for separation */
+            padding: 20px 40px;
+            border-top: 1px solid rgba(209, 226, 211, 0.1);
+        }
+
+        .bottom-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #88A493;
+        }
+
+        .payment-methods {
+            display: flex;
+            gap: 15px;
+            color: #A3C1AD;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 900px) {
+            .footer-container {
+                grid-template-columns: 1fr 1fr;
+                gap: 30px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .footer-container {
+                grid-template-columns: 1fr;
+                padding: 0 20px 30px 20px;
+            }
+            .bottom-container {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            .site-footer {
+                padding-top: 50px;
+            }
+        }
+        /* --- Split Layout Container --- */
+        .split-profile-section {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .split-card-container {
+            background-color: #D1E2D3; /* Sage Green */
+            border-radius: 16px;
+            padding: 35px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 40px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Left Side: Forms Elements */
+        .booking-details-left {
+            flex: 1.3;
+            text-align: left;
+        }
+
+        .status-badge {
+            background-color: #01796F; /* Pine Green */
+            color: white;
+            padding: 4px 10px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            border-radius: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            margin-bottom: 12px;
+        }
+
+        .status-badge .material-icons { font-size: 14px; }
+        .booking-details-left h2 { color: #004D40; font-size: 28px; margin-bottom: 2px; }
+        .booking-details-left .subtitle { color: #556B5F; font-size: 14px; margin-bottom: 25px; }
+
+        /* Form Controls */
+        .client-form { display: flex; flex-direction: column; gap: 15px; }
+        .form-row-group { display: flex; gap: 15px; }
+        .form-group { display: flex; flex-direction: column; gap: 6px; flex: 1; }
+        
+        .form-group label {
+            font-size: 13px;
+            font-weight: 500;
+            color: #004D40;
+        }
+
+        .form-group input {
+            padding: 12px;
+            border: 1px solid rgba(1, 121, 111, 0.2);
+            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            color: #2D3732;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #01796F;
+            background-color: white;
+            box-shadow: 0 0 0 3px rgba(1, 121, 111, 0.1);
+        }
+
+        .booking-submit-btn {
+            background-color: #01796F;
+            color: white;
+            border: none;
+            padding: 14px;
+            font-size: 15px;
+            font-weight: 500;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 10px;
+            transition: background 0.2s;
+        }
+
+        .booking-submit-btn:hover { background-color: #004D40; }
+
+        /* Right Side: Avatar Profiles & Receipts */
+        .profile-avatar-right {
+            flex: 0.8;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            background-color: rgba(255, 255, 255, 0.4);
+            padding: 30px;
+            border-radius: 12px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .avatar-view-wrapper { position: relative; }
+        .dashboard-avatar { width: 350px; height: 450; object-fit: cover; border-radius: 10%; border: 4px solid white; }
+        .online-status-dot { position: absolute; bottom: 4px; right: 4px; width: 14px; height: 14px; background-color: #4CAF50; border: 2.5px solid #D1E2D3; border-radius: 50%; }
+        .user-meta-text { text-align: center; }
+        .user-meta-text h3 { color: #004D40; font-size: 18px; margin-bottom: 2px; }
+        .user-meta-text p { color: #556B5F; font-size: 13px; }
+
+        /* Receipt Box Design */
+        .receipt-box {
+            background-color: white;
+            border-radius: 8px;
+            padding: 15px;
+            width: 100%;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+            border-top: 4px solid #01796F;
+            text-align: left;
+            margin-top: 10px;
+        }
+
+        .receipt-box h4 { font-size: 13px; color: #01796F; text-transform: uppercase; margin-bottom: 10px; letter-spacing: 0.5px; }
+        .receipt-box p { font-size: 13px; color: #4A5D53; margin-bottom: 6px; display: flex; justify-content: space-between; }
+        .receipt-status-text { color: #4CAF50 !important; font-weight: 700; font-size: 12px !important; margin-top: 12px; text-transform: uppercase; text-align: center; display: block !important;}
+        .hidden { display: none; }
+
+        /* Responsive Flow */
+        @media (max-width: 768px) {
+            .split-card-container { flex-direction: column; gap: 30px; }
+            .form-row-group { flex-direction: column; gap: 15px; }
+            .booking-details-left, .profile-avatar-right { width: 100%; }
+        }
+        /* --- Receipt Mini Image Thumbnail Viewport --- */
+        .receipt-image-wrap {
+            width: 100%;
+            height: 100px;
+            background-color: #F8FAF8;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 1px solid #E2ECE4;
+        }
+
+        .receipt-image-wrap img {
+            height: 200%;
+            object-fit: contain;
+            filter: drop-shadow(0px 3px 6px rgba(0,0,0,0.05));
+        }
+        /* --- Split Layout Layout --- */
+        .split-profile-section {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .split-card-container {
+            background-color: #D1E2D3; /* Sage Green */
+            border-radius: 16px;
+            padding: 35px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 40px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Left Column: Form Layout */
+        .booking-details-left {
+            flex: 1.3;
+        }
+
+        .status-badge {
+            background-color: #01796F; /* Pine Green */
+            color: white;
+            padding: 4px 10px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            border-radius: 1%;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            margin-bottom: 12px;
+        }
+
+        .booking-details-left h2 { color: #004D40; font-size: 28px; margin-bottom: 2px; }
+        .booking-details-left .subtitle { color: #556B5F; font-size: 14px; margin-bottom: 25px; }
+
+        .client-form { display: flex; flex-direction: column; gap: 15px; }
+        .form-row-group { display: flex; gap: 15px; }
+        .form-group { display: flex; flex-direction: column; gap: 6px; flex: 1; }
+        
+        .form-group label {
+            font-size: 13px;
+            font-weight: 500;
+            color: #004D40;
+        }
+
+        .form-group input {
+            padding: 12px;
+            border: 1px solid rgba(1, 121, 111, 0.2);
+            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #01796F;
+            background-color: white;
+        }
+
+        .booking-submit-btn {
+            background-color: #01796F;
+            color: white;
+            border: none;
+            padding: 14px;
+            font-size: 15px;
+            font-weight: 500;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: background 0.2s;
+        }
+
+        .booking-submit-btn:hover { background-color: #004D40; }
+
+        /* Right Column: User Profile & Dynamic Receipt */
+        .profile-avatar-right {
+            flex: 0.8;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            background-color: rgba(255, 255, 255, 0.4);
+            padding: 30px;
+            border-radius: 12px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .avatar-view-wrapper { position: relative; }
+        
+        /* User Avatar Size Definition */
+        .sk-avatar { 
+            width: 1200px;           /* Strict Width */
+            height: 600px;          /* Strict Height */
+            object-fit: cover;      /* Fills square space cleanly without distortion */
+            border-radius: 0%; 
+            border: 4px solid white; 
+        }
+        
+        .online-status-dot { position: absolute; bottom: 4px; right: 4px; width: 14px; height: 14px; background-color: #4CAF50; border: 2.5px solid #D1E2D3; border-radius: 50%; }
+        .user-meta-text { text-align: center; }
+        .user-meta-text h3 { color: #004D40; font-size: 18px; margin-bottom: 2px; }
+        .user-meta-text p { color: #556B5F; font-size: 13px; }
+
+        /* Receipt Box Wrapper Dimensions */
+        .receipt-box {
+            background-color: white;
+            border-radius: 8px;
+            padding: 15px;
+            width: 100%;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+            border-top: 4px solid #01796F;
+            margin-top: 10px;
+        }
+
+        /* Mobile Phone Image Preview Container Constraints */
+        .receipt-image-wrap {
+            width: 100%;            /* Extends to card edges */
+            height: 120px;          /* Strict display height bounding box */
+            background-color: #F8FAF8;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 1px solid #E2ECE4;
+        }
+
+        /* Phone Image Rendering Setup */
+        #receipt-device-img {
+            width: auto;            /* Automatic aspect ratio width scaling */
+            height: 100px;          /* Explicit visual height threshold constraint */
+            object-fit: contain;    /* Fully displays the phone profile without cropping edges */
+        }
+
+        .receipt-box h4 { font-size: 13px; color: #01796F; text-transform: uppercase; margin-bottom: 10px; }
+        .receipt-box p { font-size: 13px; color: #4A5D53; margin-bottom: 6px; display: flex; justify-content: space-between; }
+        .receipt-status-text { color: #4CAF50 !important; font-weight: 700; text-align: center; display: block !important; margin-top: 12px; }
+        .hidden { display: none; }
+
+        @media (max-width: 768px) {
+            .split-card-container { flex-direction: column; gap: 30px; }
+            .form-row-group { flex-direction: column; gap: 15px; }
+            .booking-details-left, .profile-avatar-right { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">
+            <span class="material-icons">phonelink_setup</span>
+            <span>SK PHONIX</span>
+        </div>
+        
+        <div class="search-container">
+            <input type="text" placeholder="Search for brands, models, or accessories...">
+            <span class="material-icons search-icon">search</span>
+        </div>
+        
+        <button class="nav-btn">
+            <span class="material-icons">shopping_cart</span>
+                       <a href="carts.html" class="nav-btn">Sign In</a>
+
+        </button>
+        <button class="nav-btn">
+         
+           <a href="signin.html" class="nav-btn">Sign In</a>
+        </button>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-image-container">
+            <img src="img/1.gif" alt="All Company Mobiles Banner" id="hero-img">
+        </div>
+        <div class="hero-text">
+            <h1>SK Phonix Hub</h1>
+            <p>Your Ultimate Destination for Next-Gen Mobility and Boundless Innovation.</p>
+        </div>
+    </header>
+
+    <main class="variations-section">
+        <h2 class="section-title">Explore Best Sellers</h2>
+        
+        <div class="showcase-container">
+            <div class="showcase-display">
+                <img id="main-display-img" src="img/mo4.jpg" alt="Selected Phone Image">
+            </div>
+            <div class="showcase-details">
+                <h2 id="main-display-title">Loading...</h2>
+                <div class="price" id="main-display-price">$0.00</div>
+                <ul class="specs">
+                    <li><span class="material-icons">memory</span> <span id="spec-cpu">Processors</span></li>
+                    <li><span class="material-icons">photo_camera</span> <span id="spec-camera">Camera Setup</span></li>
+                    <li><span class="material-icons">battery_charging_full</span> <span id="spec-battery">Battery capacity</span></li>
+                </ul>
+                <button class="nav-btn" style="background-color: #01796F; color: white; align-self: flex-start; padding: 12px 30px; border-radius: 8px;">
+                    Buy Now
+                </button>
+            </div>
+        </div>
+
+        <div class="thumbnails-grid" id="thumbnails-container">
+            </div>
+    </main>
+
+    <script>
+        // Mock dataset mimicking dynamic inventories
+        const catalogVariations = [
+            {
+                id: "v1",
+                name: "Titanium Pro Max",
+                price: "$1,199",
+                imgSrc: "https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=400&auto=format&fit=crop&q=60",
+                cpu: "A17 Bionic Ceramic Chip",
+                camera: "48MP Triple Lens Mastery system",
+                battery: "4500 mAh with Pro fast charge"
+            },
+            {
+                id: "v2",
+                name: "Galaxy Ultra Fold",
+                price: "$999",
+                imgSrc: "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=400&auto=format&fit=crop&q=60",
+                cpu: "Snapdragon Gen 3 Octa-Core",
+                camera: "200MP Space Zoom Optic System",
+                battery: "5000 mAh Intelligent Dual Battery"
+            },
+            {
+                id: "v3",
+                name: "Pixel Horizon Lite",
+                price: "$799",
+                imgSrc: "https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=400&auto=format&fit=crop&q=60",
+                cpu: "Google Tensor G3 Processing Engine",
+                camera: "50MP Real Tone Night Sight lens",
+                battery: "4850 mAh Adaptive Management Grid"
+            },
+            {
+                id: "v4",
+                name: "Nothing Clear Matrix",
+                price: "$649",
+                imgSrc: "https://images.unsplash.com/photo-1565630916779-e303be97b6f5?w=400&auto=format&fit=crop&q=60",
+                cpu: "Snapdragon 7+ Framework Architecture",
+                camera: "50MP Dual Advanced Glyph Sensors",
+                battery: "4600 mAh Synchronized Grid Supply"
+            },
+            {
+                id: "v5",
+                name: "Oneplus Nord 6",
+                price: "$1,199",
+                imgSrc: "img/mo4.jpg",
+                cpu: "A17 Bionic Ceramic Chip",
+                camera: "48MP Triple Lens Mastery system",
+                battery: "4500 mAh with Pro fast charge"
+            }
+        ];
+
+        const thumbContainer = document.getElementById('thumbnails-container');
+        const mainImg = document.getElementById('main-display-img');
+        const mainTitle = document.getElementById('main-display-title');
+        const mainPrice = document.getElementById('main-display-price');
+        const specCpu = document.getElementById('spec-cpu');
+        const specCamera = document.getElementById('spec-camera');
+        const specBattery = document.getElementById('spec-battery');
+
+        // Render the thumbnails inside the interactive catalog interface
+        function initGallery() {
+            catalogVariations.forEach((phone, index) => {
+                const card = document.createElement('div');
+                card.classList.add('thumb-card');
+                if(index === 0) card.classList.add('active'); // default layout selection initialize
+                
+                card.setAttribute('data-id', phone.id);
+                card.innerHTML = `
+                    <img src="${phone.imgSrc}" alt="${phone.name}">
+                    <p>${phone.name}</p>
+                `;
+                
+                card.addEventListener('click', () => updateActiveShowcase(phone, card));
+                thumbContainer.appendChild(card);
+            });
+
+            // Initialize display box with prime dataset item entry data
+            updateActiveShowcase(catalogVariations[0], thumbContainer.children[0]);
+        }
+
+        // Swap the contents of the main viewport gracefully on item interaction trigger rules
+        function updateActiveShowcase(phoneData, targetElement) {
+            // Remove active classes everywhere
+            document.querySelectorAll('.thumb-card').forEach(el => el.classList.remove('active'));
+            
+            // Set current clicked state item frame wrapper highlighting border 
+            targetElement.classList.add('active');
+
+            // Apply modifications UI text nodes targets safely injection
+            mainImg.src = phoneData.imgSrc;
+            mainTitle.textContent = phoneData.name;
+            mainPrice.textContent = phoneData.price;
+            specCpu.textContent = phoneData.cpu;
+            specCamera.textContent = phoneData.camera;
+            specBattery.textContent = phoneData.battery;
+        }
+
+        // Execute initialization setup sequence loops standard procedures
+        window.addEventListener('DOMContentLoaded', initGallery);
+    </script>
+    <section class="split-profile-section">
+    <div class="split-card-container">
+        
+        
+
+        <div class="profile-avatar-right">
+            <div class="avatar-view-wrapper">
+                <img src="img/2.gif" alt="User Profile Avatar" class="sk-avatar">
+                <span class="online-status-dot"></span>
+            </div>
+            
+            
+            <div id="receipt-card" class="receipt-box hidden">
+                <h4>Reservation Receipt</h4>
+                
+                <div class="receipt-image-wrap">
+                    <img id="receipt-device-img" src="" alt="Booked Device Preview">
+                </div>
+
+                <p><strong>Device:</strong> <span id="receipt-device">--</span></p>
+                <p><strong>Order ID:</strong> <span id="receipt-id">--</span></p>
+                <p><strong>Price:</strong> <span id="receipt-price">--</span></p>
+                <p class="receipt-status-text">Ready for In-Store Pickup</p>
+            </div>
+        </div>
+
+    </div>
+</section>
+    
+    
+</div>
+    
+    <section class="split-profile-section">
+    <div class="split-card-container">
+        
+        <div class="booking-details-left">
+            <span class="status-badge"><span class="material-icons">assignment</span> Client Verification</span>
+            <h2>Book Your Phone</h2>
+            <p class="subtitle">Fill out your information to link the selected device to your profile.</p>
+            
+            <form id="checkout-form" class="client-form" onsubmit="event.preventDefault();">
+                <div class="form-group">
+                    <label for="client-name">Full Name</label>
+                    <input type="text" id="client-name" placeholder="e.g., Alex Morgan" required>
+                </div>
+                
+                <div class="form-row-group">
+                    <div class="form-group">
+                        <label for="client-email">Email Address</label>
+                        <input type="email" id="client-email" placeholder="alex@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="client-phone">Contact Number</label>
+                        <input type="tel" id="client-phone" placeholder="+91 9934446456" required>
+                    </div>
+                </div>
+
+                <button type="submit" id="submit-booking-btn" class="booking-submit-btn">
+                    <span class="material-icons">check_circle</span> Confirm & Book Phone
+                </button>
+            </form>
+        </div>
+
+        <div class="profile-avatar-right">
+            <div class="avatar-view-wrapper">
+                <img src="img/3.gif"User Profile Avatar" class="dashboard-avatar">
+                <span class="online-status-dot"></span>
+            </div>
+            
+           
+
+            <div id="receipt-card" class="receipt-box hidden">
+                <h4>Reservation Receipt</h4>
+                <p><strong>Device:</strong> <span id="receipt-device">--</span></p>
+                <p><strong>Order ID:</strong> <span id="receipt-id">--</span></p>
+                <p><strong>Price:</strong> <span id="receipt-price">--</span></p>
+                <p class="receipt-status-text">Ready for In-Store Pickup</p>
+            </div>
+        </div>
+
+    </div>
+</section>
+    <footer class="site-footer">
+    <div class="footer-container">
+        <div class="footer-col brand-col">
+            <div class="footer-logo">
+                <span class="material-icons">phonelink_setup</span>
+                <span>PHONIX</span>
+            </div>
+            <p class="footer-text">Your ultimate destination for next-gen mobility, premium accessories, and boundless innovation.</p>
+            <div class="social-links">
+                <a href="#" aria-label="Facebook"><span class="material-icons">public</span></a>
+                <a href="#" aria-label="Twitter"><span class="material-icons">flutter_dash</span></a>
+                <a href="#" aria-label="Instagram"><span class="material-icons">camera_alt</span></a>
+            </div>
+        </div>
+
+        <div class="footer-col">
+            <h3>Shop Categories</h3>
+            <ul>
+                <li><a href="#">Smartphones</a></li>
+                <li><a href="#">Tablets & iPads</a></li>
+                <li><a href="#">Wearables</a></li>
+                <li><a href="#">Audio & Accessories</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-col">
+            <h3>Support</h3>
+            <ul>
+                <li><a href="#">Track Order</a></li>
+                <li><a href="#">Shipping Policy</a></li>
+                <li><a href="#">Returns & Exchanges</a></li>
+                <li><a href="#">FAQs</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-col newsletter-col">
+            <h3>Stay Updated</h3>
+            <p>Subscribe to get special offers, free giveaways, and once-in-a-lifetime deals.</p>
+            <form class="newsletter-form" onsubmit="event.preventDefault();">
+                <input type="email" placeholder="Enter your email" required>
+                <button type="submit" aria-label="Subscribe">
+                    <span class="material-icons">send</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <div class="bottom-container">
+            <p>&copy; 2026 SK PHONIX Hub. All rights reserved.</p>
+            <div class="payment-methods">
+                <span class="material-icons" title="Secure Payment">credit_card</span>
+                <span class="material-icons" title="Contactless Pay">contactless</span09873
+                <span class="material-icons" title="Account Balance">account_balance_wallet</span>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+</html>
